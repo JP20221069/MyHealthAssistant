@@ -1,5 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    
+    <style name="Theme.MyHealthAssistant" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/navy</item>
+        <item name="colorPrimaryVariant">@color/navy</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 
-    <style name="Theme.MyHealthAssistant" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.MyHealthAssistant.Link">
+        <item name="android:textColor">@color/sys_link</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.Text">
+        <item name="android:textColor">@color/sys_text</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.Label">
+        <item name="android:textColor">@color/ha_white</item>
+        <item name="android:textSize">16dp</item>
+        <item name="fontFamily">@font/sarabun_regular</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.Button">
+        <item name="android:textColor">@color/sys_text</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:colorPrimary">@color/sys_control</item>
+        <item name="android:textAppearance">@id/dialog_button</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.Picker" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/sys_text</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.ComboBox" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:textColorPrimary">@color/sys_text</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.Dialog">
+        <item name="android:textColorPrimary">@color/sys_text</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.LogoTitle">
+        <item name="android:textColorPrimary">@color/ha_white</item>
+        <item name="fontFamily">@font/redhatdisplay_black</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.LogoTitle2">
+        <item name="android:textColorPrimary">@color/ha_white</item>
+        <item name="fontFamily">@font/intertight_medium</item>
+    </style>
+
 </resources>
