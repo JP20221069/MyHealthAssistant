@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tmp">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pnlSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivwIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="111dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/s0"
+            tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/twDescription"
+            android:layout_width="381dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="16dp"
+            android:text="You are currently feeling no pain."
+            android:textAppearance="@style/Theme.MyHealthAssistant.LabelBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499" />
+
+        <TextView
+            android:id="@+id/twtrack"
+            android:layout_width="374dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="47dp"
+            android:layout_marginTop="464dp"
+            android:text="0      1     2      3      4     5      6      7     8      9     10"
+            android:textAppearance="@style/Theme.MyHealthAssistant.LabelBlack"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/twtitle2"
+            android:layout_width="205dp"
+            android:layout_height="52dp"
+            android:fontFamily="@font/sarabun_bold"
+            android:text="No pain"
+            android:textAlignment="center"
+            android:textAppearance="@style/Theme.MyHealthAssistant.LabelBlack"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.501"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.376" />
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="337dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="488dp"
+            android:background="@drawable/scale"
+            android:max="10"
+            android:min="0"
+            android:progress="10"
+            android:thumb="@drawable/tracker"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

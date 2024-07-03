@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_symptomsMenuFragment"
+            app:destination="@id/symptomsMenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -35,4 +38,33 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/symptomsMenuFragment"
+        android:name="com.jpp.myhealthassistant.SymptomsMenuFragment"
+        android:label="fragment_symptoms_menu"
+        tools:layout="@layout/fragment_symptoms_menu" >
+        <action
+            android:id="@+id/action_symptomsMenuFragment_to_painWizardFragment"
+            app:destination="@id/painWizardFragment" />
+        <action
+            android:id="@+id/action_symptomsMenuFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/painWizardFragment"
+        android:name="com.jpp.myhealthassistant.PainWizardFragment"
+        android:label="fragment_pain_wizard"
+        tools:layout="@layout/fragment_pain_wizard" >
+        <action
+            android:id="@+id/action_painWizardFragment_to_tmp"
+            app:destination="@id/tmp" />
+        <action
+            android:id="@+id/action_painWizardFragment_to_symptomsMenuFragment"
+            app:destination="@id/symptomsMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tmp"
+        android:name="com.jpp.myhealthassistant.tmp"
+        android:label="fragment_tmp"
+        tools:layout="@layout/fragment_tmp" />
 </navigation>

@@ -24,6 +24,12 @@
         <item name="fontFamily">@font/sarabun_regular</item>
     </style>
 
+    <style name="Theme.MyHealthAssistant.LabelBlack">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16dp</item>
+        <item name="fontFamily">@font/sarabun_regular</item>
+    </style>
+
     <style name="Theme.MyHealthAssistant.Button">
         <item name="android:textColor">@color/sys_text</item>
         <item name="android:textSize">16dp</item>
@@ -49,6 +55,11 @@
 
     <style name="Theme.MyHealthAssistant.LogoTitle">
         <item name="android:textColorPrimary">@color/ha_white</item>
+        <item name="fontFamily">@font/redhatdisplay_black</item>
+    </style>
+
+    <style name="Theme.MyHealthAssistant.TitleBlack">
+        <item name="android:textColorPrimary">@color/black</item>
         <item name="fontFamily">@font/redhatdisplay_black</item>
     </style>
 
