@@ -1,5 +1,6 @@
 package com.jpp.myhealthassistant
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.SeekBar
+import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.jpp.myhealthassistant.controller.MyHealthAssistantController
 import com.jpp.myhealthassistant.databinding.FragmentPainWizardBinding
-import com.jpp.myhealthassistant.utils.Location
+import com.jpp.myhealthassistant.model.Location
+import com.jpp.myhealthassistant.model.Measurement
+import com.jpp.myhealthassistant.utils.ToastHandler
 import com.jpp.myhealthassistant.utils.Utility
 
 // TODO: Rename parameter arguments, choose names that match
@@ -49,7 +54,8 @@ class PainWizardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view);
-        dictOfLocations= mapOf(Location.HEAD to binding.ibHead, Location.STOMACH to binding.ibAbdomen,
+        dictOfLocations= mapOf(
+            Location.HEAD to binding.ibHead, Location.STOMACH to binding.ibAbdomen,
             Location.CHEST to binding.ibChest,
             Location.RIGHT_ARM to binding.ibRA,
             Location.LEFT_ARM to binding.ibLA,
@@ -105,6 +111,14 @@ class PainWizardFragment : Fragment() {
 
         binding.btnNext.setOnClickListener{
             UpdateUI(Location.DEFAULT,wizardprogress+1)
+            if(wizardprogress==3)
+            {
+                addMeasurement();
+            }
+            if(wizardprogress==4)
+            {
+                navController.navigate(R.id.action_painWizardFragment_to_symptomsMenuFragment);
+            }
         }
         binding.btnBack.setOnClickListener {
             UpdateUI(Location.DEFAULT, wizardprogress - 1)
@@ -131,7 +145,7 @@ class PainWizardFragment : Fragment() {
 
 
 
-    fun UpdateUI(l:Location=Location.DEFAULT,newwp:Int=wizardprogress)
+    fun UpdateUI(l: Location = Location.DEFAULT, newwp:Int=wizardprogress)
     {
         if(newwp!=wizardprogress)
         {
@@ -139,7 +153,7 @@ class PainWizardFragment : Fragment() {
             {
                 navController.navigate(R.id.action_painWizardFragment_to_symptomsMenuFragment)
             }
-            if(newwp>2)
+            if(newwp>4)
             {
                 return;
             }
@@ -147,6 +161,10 @@ class PainWizardFragment : Fragment() {
             {
                 wizardprogress=newwp;
             }
+        }
+        if(wizardprogress<3)
+        {
+            binding.btnNext.text="Next";
         }
         if(wizardprogress==1)
         {
@@ -161,17 +179,24 @@ class PainWizardFragment : Fragment() {
             binding.pnlMap.visibility=View.INVISIBLE;
             UpdatePainScale();
         }
+        else if(wizardprogress==3)
+        {
+            binding.pnlSelect.visibility=View.INVISIBLE;
+            binding.pnlMap.visibility=View.INVISIBLE;
+            binding.pnlFinish.visibility=View.VISIBLE;
+            binding.btnNext.text="Finish";
+        }
 
 
 
     }
-    fun setimagebuttons(l:Location)
+    fun setimagebuttons(l: Location)
     {
-        if(l==Location.DEFAULT) return;
+        if(l== Location.DEFAULT) return;
         if(l==location)
         {
             dictOfLocations[l]?.setImageDrawable(Utility().GetImage(requireContext(),l.name.lowercase()));
-            location=Location.DEFAULT;
+            location= Location.DEFAULT;
         }
         else
         {
@@ -244,6 +269,19 @@ class PainWizardFragment : Fragment() {
                 "The pain is the worst you have ever experienced.\n ⚠\uFE0F CONTACT YOUR EMERGENCY SERVICE IMMEDIATELY ⚠\uFE0F"
         }
     }
+
+    fun addMeasurement()
+    {
+        var ctrl:MyHealthAssistantController= MyHealthAssistantController(requireContext())
+        var uid = context?.getSharedPreferences("SESSION_DATA", Context.MODE_PRIVATE)?.getString("USR_ID","-1")?.toInt();
+        var user = ctrl.getUserByID(uid!!);
+        var scale = ctrl.getScaleByName("Pain Scale");
+        var measure:Measurement = Measurement(-1,user,painscale.toFloat(),scale,location,1);
+        ctrl.insertMeasurement(measure);
+        var th = ToastHandler(requireContext());
+        th.showToast("Successfully inserted measurement.", Toast.LENGTH_SHORT);
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

@@ -6,12 +6,19 @@ import android.database.Cursor
 import android.widget.Toast
 import com.jpp.myhealthassistant.broker.SqliteBroker
 import com.jpp.myhealthassistant.helper.DBHelper
+import com.jpp.myhealthassistant.model.Measurement
+import com.jpp.myhealthassistant.model.Scale
 import com.jpp.myhealthassistant.model.User
+import com.jpp.myhealthassistant.utils.DBTools
+import com.jpp.myhealthassistant.utils.ToastHandler
+import com.jpp.myhealthassistant.model.Unit;
 
 class MyHealthAssistantController(context: Context)
 {
     val context = context;
     val DBBroker:SqliteBroker = SqliteBroker(context)
+    val dbt:DBTools = DBTools();
+    val th:ToastHandler = ToastHandler(context);
     fun loginUser(u: User):User?
     {
         try {
@@ -22,13 +29,13 @@ class MyHealthAssistantController(context: Context)
             }
             else
             {
-                Toast.makeText(context,"Error: User already logged in.",Toast.LENGTH_SHORT);
+                th.showToast("Error: User already logged in.",Toast.LENGTH_SHORT);
                 return null;
             }
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
         return null;
     }
@@ -43,7 +50,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
     }
 
@@ -57,7 +64,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
     }
 
@@ -79,7 +86,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
         return null;
     }
@@ -102,7 +109,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
         return null;
     }
@@ -128,7 +135,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
         return null;
     }
@@ -152,7 +159,7 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
         return null;
     }
@@ -164,7 +171,98 @@ class MyHealthAssistantController(context: Context)
         }
         catch(e:Exception)
         {
-            Toast.makeText(context,"Error: "+e.message,Toast.LENGTH_SHORT);
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
         }
+    }
+
+    fun insertMeasurement(m: Measurement)
+    {
+        try
+        {
+            DBBroker.executeNonQuery("INSERT INTO USER_MEASUREMENTS(USER_ID,VALUE,SCALE,POSITIONAL) VALUES("+m.User?.ID+","+m.Value+","+m.Scale?.ID+","+m.Positional+");")
+            if(m.Positional==1)
+            {
+                val id = DBBroker.executeScalar("SELECT ID FROM USER_MEASUREMENTS ORDER BY ID DESC LIMIT 1")
+                DBBroker.executeNonQuery("INSERT INTO MEASUREMENT_LOCATION(MEASUREMENT_ID,LOCATION,REFERRED,PRECISE) VALUES("+id+","+m.Location?.value+",0,0);")
+            }
+        }
+        catch(e:Exception)
+        {
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
+        }
+    }
+
+    fun getScaleByID(id:Int): Scale?
+    {
+        try {
+
+
+            var ret = Scale();
+            var cursor: Cursor? = DBBroker.executeQuery("SELECT * FROM SCALE WHERE ID=" + id);
+            while (cursor?.moveToNext()!!) {
+                ret.ID=dbt.getInt(cursor,"ID");
+                ret.Name=dbt.getString(cursor,"NAME")!!;
+                ret.Unit=getUnitByID(dbt.getInt(cursor,"UNIT")!!);
+                ret.Step=dbt.getFloat(cursor,"STEP");
+                ret.Description=dbt.getString(cursor,"DESCRIPTION");
+                ret.Categoric=dbt.getInt(cursor,"CATEGORIC")!!;
+                ret.MaxValue=dbt.getFloat(cursor,"MAX_VALUE");
+                ret.MinValue=dbt.getFloat(cursor,"MIN_VALUE");
+            }
+            return ret;
+        }
+        catch(e:Exception)
+        {
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
+        }
+        return null;
+    }
+
+    fun getScaleByName(name:String): Scale?
+    {
+        try {
+
+
+            var ret = Scale();
+            var cursor: Cursor? = DBBroker.executeQuery("SELECT * FROM SCALE WHERE NAME='" +name+"';");
+            while (cursor?.moveToNext()!!) {
+                ret.ID=dbt.getInt(cursor,"ID");
+                ret.Name=dbt.getString(cursor,"NAME")!!;
+                ret.Unit=getUnitByID(dbt.getInt(cursor,"UNIT")!!);
+                ret.Step=dbt.getFloat(cursor,"STEP");
+                ret.Description=dbt.getString(cursor,"DESCRIPTION");
+                ret.Categoric=dbt.getInt(cursor,"CATEGORIC")!!;
+                ret.MaxValue=dbt.getFloat(cursor,"MAX_VALUE");
+                ret.MinValue=dbt.getFloat(cursor,"MIN_VALUE");
+            }
+            return ret;
+        }
+        catch(e:Exception)
+        {
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
+        }
+        return null;
+    }
+
+    fun getUnitByID(id:Int):Unit?
+    {
+        try {
+
+
+            var ret = Unit();
+            var cursor: Cursor? = DBBroker.executeQuery("SELECT * FROM MEASUREMENT_UNIT WHERE ID=" + id);
+            while (cursor?.moveToNext()!!) {
+                ret.ID=dbt.getInt(cursor,"ID")!!;
+                ret.Acronym=dbt.getString(cursor,"ACRONYM")!!;
+                ret.Fullname=dbt.getString(cursor,"FULLNAME")!!;
+                ret.Description=dbt.getString(cursor,"DESCRIPTION");
+            }
+            return ret;
+        }
+        catch(e:Exception)
+        {
+            th.showToast("Error: "+e.message,Toast.LENGTH_SHORT);
+        }
+        return null;
     }
 }

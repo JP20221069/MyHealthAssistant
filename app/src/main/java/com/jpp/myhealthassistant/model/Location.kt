@@ -1,4 +1,4 @@
-package com.jpp.myhealthassistant.utils
+package com.jpp.myhealthassistant.model
 
 enum class Location(val value:Int)
 {

@@ -37,6 +37,43 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pnlFinish"
+        android:layout_width="411dp"
+        android:layout_height="628dp"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteY="16dp"
+        tools:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/twtitle3"
+            android:layout_width="205dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="100dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/sarabun_bold"
+            android:text="Thank you!"
+            android:textAlignment="center"
+            android:textAppearance="@style/Theme.MyHealthAssistant.LabelBlack"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/twDescription2"
+            android:layout_width="381dp"
+            android:layout_height="90dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="436dp"
+            android:text="Thank you for registering your symptoms. \nWe hope you'll feel better soon!\nRemember to check in with your doctor if you don't."
+            android:textAppearance="@style/Theme.MyHealthAssistant.LabelBlack"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/pnlSelect"
         android:layout_width="406dp"
         android:layout_height="603dp"
