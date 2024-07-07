@@ -63,7 +63,8 @@ class PainWizardFragment : Fragment() {
             Location.LEFT_HAND to binding.ibLH,
             Location.LEFT_LEG to binding.ibLL,
             Location.RIGHT_LEG to binding.ibRL,
-            Location.RIGHT_FOOT to binding.ibRF
+            Location.RIGHT_FOOT to binding.ibRF,
+            Location.LEFT_FOOT to binding.ibLF
         );
         binding.ibHead.setOnClickListener{
             UpdateUI(Location.HEAD);
@@ -164,7 +165,7 @@ class PainWizardFragment : Fragment() {
         }
         if(wizardprogress<3)
         {
-            binding.btnNext.text="Next";
+            binding.btnNext.text=getString(R.string.Next);
         }
         if(wizardprogress==1)
         {
@@ -184,7 +185,7 @@ class PainWizardFragment : Fragment() {
             binding.pnlSelect.visibility=View.INVISIBLE;
             binding.pnlMap.visibility=View.INVISIBLE;
             binding.pnlFinish.visibility=View.VISIBLE;
-            binding.btnNext.text="Finish";
+            binding.btnNext.text=getString(R.string.Finish);
         }
 
 
@@ -214,59 +215,52 @@ class PainWizardFragment : Fragment() {
     {
         if (painscale == 0) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s0"));
-            binding.twtitle2.text = "No pain";
-            binding.twDescription.text = "You are currently experiencing no pain."
+            binding.twtitle2.text = getString(R.string.NoPain);
+            binding.twDescription.text = getString(R.string.Pain0)
         } else if (painscale == 1) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s0"));
-            binding.twtitle2.text = "Very mild pain";
-            binding.twDescription.text = "You are having some pain, but it's hardly noticeable."
+            binding.twtitle2.text = getString(R.string.VeryMildPain);
+            binding.twDescription.text = getString(R.string.Pain1);
         } else if (painscale == 2) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s1"));
-            binding.twtitle2.text = "Mild pain";
-            binding.twDescription.text = "You are beginning to notice the pain."
+            binding.twtitle2.text = getString(R.string.MildPain);
+            binding.twDescription.text = getString(R.string.Pain2);
         } else if (painscale == 3) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s1"));
-            binding.twtitle2.text = "Mild pain";
-            binding.twDescription.text = "You are sometimes distracted by the pain."
+            binding.twtitle2.text = getString(R.string.MildPain);
+            binding.twDescription.text = getString(R.string.Pain3);
         } else if (painscale == 4) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s1"));
-            binding.twtitle2.text = "Mild to Moderate pain";
-            binding.twDescription.text =
-                "You are constantly distracted by pain but can perform usual activities."
+            binding.twtitle2.text = getString(R.string.MildModeratePain);
+            binding.twDescription.text = getString(R.string.Pain4);
         } else if (painscale == 5) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s2"));
-            binding.twtitle2.text = "Moderate pain";
-            binding.twDescription.text =
-                "The pain is bad enough that you need to interrupt or limit some activities.\n Have some rest and follow your condition, contact a physician if you need to."
+            binding.twtitle2.text = getString(R.string.ModeratePain);
+            binding.twDescription.text = getString(R.string.Pain5);
         } else if (painscale == 6) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s3"));
-            binding.twtitle2.text = "Moderate to Severe pain";
-            binding.twDescription.text =
-                "The pain is bad enough that you need to cease all activities.\nIt would be wise to consult with your physician."
+            binding.twtitle2.text = getString(R.string.ModerateSeverePain);
+            binding.twDescription.text =getString(R.string.Pain6);
 
         } else if (painscale == 7) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s3"));
-            binding.twtitle2.text = "Severe pain";
-            binding.twDescription.text =
-                "The pain is in constant focus. You can not do daily activities.\nIt would be wise to consult with your physician."
+            binding.twtitle2.text = getString(R.string.SeverePain);
+            binding.twDescription.text =getString(R.string.Pain7);
 
         } else if (painscale == 8) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s4"));
-            binding.twtitle2.text = "Severe pain";
-            binding.twDescription.text =
-                "The pain is awful, you can not do anything.\nIt would be wise to contact medical staff as soon as possible."
+            binding.twtitle2.text = getString(R.string.SeverePain);
+            binding.twDescription.text =getString(R.string.Pain8);
 
         } else if (painscale == 9) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s4"));
-            binding.twtitle2.text = "Unbearable pain";
-            binding.twDescription.text =
-                "You feel the pain is unbearable.\n ⚠\uFE0F CONTACT A DOCTOR IMMEDIATELY ⚠\uFE0F"
+            binding.twtitle2.text = getString(R.string.SeverePain);
+            binding.twDescription.text =getString(R.string.Pain9);
 
         } else if (painscale == 10) {
             binding.ivwIcon.setImageDrawable(Utility().GetImage(requireContext(), "s5"));
-            binding.twtitle2.text = "Extreme pain";
-            binding.twDescription.text =
-                "The pain is the worst you have ever experienced.\n ⚠\uFE0F CONTACT YOUR EMERGENCY SERVICE IMMEDIATELY ⚠\uFE0F"
+            binding.twtitle2.text = getString(R.string.ExtremePain);
+            binding.twDescription.text =getString(R.string.Pain10);
         }
     }
 
@@ -279,7 +273,7 @@ class PainWizardFragment : Fragment() {
         var measure:Measurement = Measurement(-1,user,painscale.toFloat(),scale,location,1);
         ctrl.insertMeasurement(measure);
         var th = ToastHandler(requireContext());
-        th.showToast("Successfully inserted measurement.", Toast.LENGTH_SHORT);
+        //th.showToast("Successfully inserted measurement.", Toast.LENGTH_SHORT);
     }
 
     companion object {

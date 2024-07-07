@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_mainMenuFragment_to_symptomsMenuFragment"
             app:destination="@id/symptomsMenuFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -67,4 +70,25 @@
         android:name="com.jpp.myhealthassistant.tmp"
         android:label="fragment_tmp"
         tools:layout="@layout/fragment_tmp" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.jpp.myhealthassistant.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_languagesFragment"
+            app:destination="@id/languagesFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_mainMenuFragment"
+            app:destination="@id/mainMenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/languagesFragment"
+        android:name="com.jpp.myhealthassistant.LanguagesFragment"
+        android:label="fragment_languages"
+        tools:layout="@layout/fragment_languages" >
+        <action
+            android:id="@+id/action_languagesFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
 </navigation>

@@ -15,6 +15,7 @@ import com.jpp.myhealthassistant.controller.MyHealthAssistantController
 import com.jpp.myhealthassistant.databinding.FragmentLoginBinding;
 import com.jpp.myhealthassistant.model.User
 import java.io.File
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -33,9 +34,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        val sharedPref = context?.getSharedPreferences("settings", Context.MODE_PRIVATE)
+        sharedPref?.getString("LANG","en")?.let { setlocale(it) };
     }
 
     override fun onCreateView(
@@ -102,7 +102,14 @@ class LoginFragment : Fragment() {
         }
     }
 
-
+    private fun setlocale(locale:String){
+        var locale = Locale(locale);
+        var resources=activity?.resources;
+        var config = resources?.configuration;
+        config?.setLocale(locale);
+        resources?.updateConfiguration(config,resources?.displayMetrics);
+        //(activity as? MainActivity)?.recreate()
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of

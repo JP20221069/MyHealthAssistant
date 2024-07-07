@@ -1,5 +1,6 @@
 package com.jpp.myhealthassistant
 
+import android.R.attr.textSize
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import com.jpp.myhealthassistant.controller.MyHealthAssistantController
 import com.jpp.myhealthassistant.databinding.FragmentLoginBinding
 import com.jpp.myhealthassistant.databinding.FragmentMainMenuBinding
 import com.jpp.myhealthassistant.ui.theme.MyHealthAssistantTheme
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,9 +32,7 @@ class MainMenuFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-
-        }
+        context?.getSharedPreferences("settings", Context.MODE_PRIVATE)?.getString("LANG","en")?.let { setlocale(it) };
     }
 
     override fun onCreateView(
@@ -47,6 +47,7 @@ class MainMenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController= Navigation.findNavController(view);
+        UpdateUI();
         binding.btnLogout.setOnClickListener {
             var ctrl= MyHealthAssistantController(requireContext());
             var sharedPrefstr = context?.getSharedPreferences("SESSION_DATA", Context.MODE_PRIVATE)?.getString("USR_ID","-1");
@@ -63,6 +64,19 @@ class MainMenuFragment : Fragment() {
             menu("SYMPTOMS");
         }
 
+        binding.btnSettings.setOnClickListener {
+            menu("SETTINGS");
+        }
+        binding.ibSettings.setOnClickListener{
+            menu("SETTINGS");
+        }
+        binding.btnExit.setOnClickListener{
+            menu("EXIT");
+        }
+        binding.ibExit.setOnClickListener {
+            menu("EXIT");
+        }
+
     }
 
     fun menu(choice:String)
@@ -71,8 +85,32 @@ class MainMenuFragment : Fragment() {
         {
             navController.navigate(R.id.action_mainMenuFragment_to_symptomsMenuFragment);
         }
+        else if(choice=="SETTINGS")
+        {
+            navController.navigate(R.id.action_mainMenuFragment_to_settingsFragment);
+        }
+        else if(choice=="EXIT")
+        {
+            activity?.finishAndRemoveTask();
+        }
     }
+    private fun setlocale(locale:String){
+        var locale = Locale(locale);
+        var resources=activity?.resources;
+        var config = resources?.configuration;
+        config?.setLocale(locale);
+        resources?.updateConfiguration(config,resources?.displayMetrics);
+        //(activity as? MainActivity)?.recreate()
+    }
+    fun UpdateUI()
+    {
+            val minHeight = (binding.btnSymptoms.textSize + 1).toInt()
+            val minWidth = (binding.btnSymptoms.textSize  * 4 + 1).toInt()
 
+        binding.btnSymptoms.setMinHeight(minHeight)
+        binding.btnSymptoms.setMinWidth(minWidth)
+
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
